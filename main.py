@@ -30,13 +30,21 @@ dic_entero_a_romano= {1:'I' ,2: 'II' ,3: 'III' ,4: 'IV' , 5: 'V' , 6: 'VI' ,  7:
 
 class RomanNumberError( Exception ):
     pass
-1994
+
 def entero_a_romano(numero):#1994
     numero = str(numero)
     list_numero = list(numero)
    
     valor_romano = ""
 
+    cont = 0
+    valor_num = 1000
+    while cont < 4:
+        list_numero[cont] = int(list_numero[cont])*valor_num
+        valor_romano += dic_entero_a_romano.get(list_numero[cont])
+        cont+=1
+        valor_num /= 10
+    
     for i in range(0,len(list_numero)):
         if  i==0:
             list_numero[i] = int( list_numero[i] )*1000
@@ -53,8 +61,7 @@ def entero_a_romano(numero):#1994
         elif i==3: 
             list_numero[i] = int( list_numero[i] )
             valor_romano += unidades.get(list_numero[i])
-
-
+    ...
     return valor_romano
 
 print( entero_a_romano(1994) )
