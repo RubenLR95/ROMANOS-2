@@ -27,12 +27,42 @@ dic_entero_a_romano= {1:'I' ,2: 'II' ,3: 'III' ,4: 'IV' , 5: 'V' , 6: 'VI' ,  7:
                       100: 'C' , 200: 'CC' , 300: 'CCC' ,400: 'CD' , 500: 'D' , 600: 'DC' ,700: 'DCC' , 800: 'DCCC' , 900: 'CM', 
                       1000: 'M' , 2000: 'MM' , 3000: 'MMM'}
 
+dic_romano_a_entero={
+    'I' : 1, 'V': 5, 'X':10,
+    'L':50, 'C':100, 'D':500, 
+    'M':1000
+}
+
+
 
 class RomanNumberError( Exception ):
     pass
 
+def romano_a_entero(romano:str)->int:
+    valor_entero = 0
+    lista_romano = list(romano)
+
+    for pos in range(0, len(lista_romano)):
+        if pos == 0:
+            if dic_romano_a_entero.get(lista_romano[pos]) <  dic_romano_a_entero.get(lista_romano[pos+1]):
+                 valor_entero = dic_romano_a_entero.get(lista_romano[pos+1]) - dic_romano_a_entero.get(lista_romano[pos])
+            else:
+                 valor_entero += dic_romano_a_entero.get(lista_romano[pos])
+        else:
+            valor_entero += dic_romano_a_entero.get(lista_romano[pos])
+
+
+    '''
+    for i in romano:
+        valor_entero += dic_romano_a_entero.get(i , 0)    
+    '''
+
+    return valor_entero 
+  
+print(romano_a_entero("III")) 
+
 #1994
-def entero_a_romano(numero):
+def entero_a_romano(numero:int)->str:
 
     numero = "{:0>4d}".format(numero)#transforma el numero dado a un str de 4 digitos, y si es menos lo complementa con ceros a la izquierda
     list_numero = list(numero)#transforma el str dado a una lista de string de cada caracter 
