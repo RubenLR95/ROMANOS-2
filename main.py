@@ -1,24 +1,24 @@
+'''
+1-Crear una funcion que pase de entero >0 y <4000 a romano
+2-cualquier otra entrada debe dar error
+3-limite 3999
 
-#1-Crear una funcion que pase de entero >0 y <4000 a romano
-#2-cualquier otra entrada debe dar error
-#3-limite 3999
+Casos de prueba
+a)1994 -> MCMXCIV
+b)4000 -> RomanNumberError("El valor debe ser menor de 4000")
+c)"unacadena"-> RomanNumberError("Debe ser un entero")
+d) 0-> RomanNumberError("El valor debe ser mayor de cero")
+e) -3 ->RomanNumberError("El valor debe ser mayor de cero")
+f) 4.5 -> RomanNumberError("Debe ser un entero")
 
-#Casos de prueba
-#a)1994 -> MCMXCIV
-#b)4000 -> RomanNumberError("El valor debe ser menor de 4000")
-#c)"unacadena"-> RomanNumberError("Debe ser un entero")
-#d) 0-> RomanNumberError("El valor debe ser mayor de cero")
-#e) -3 ->RomanNumberError("El valor debe ser mayor de cero")
-#f) 4.5 -> RomanNumberError("Debe ser un entero")
-
-#M → 1000
-#D → 500
-#C → 100
-#L → 50
-#X → 10
-#V → 5
-#I → 1
-
+M → 1000
+D → 500
+C → 100
+L → 50
+X → 10
+V → 5
+I → 1
+'''
 
 
 
@@ -41,11 +41,13 @@ class RomanNumberError( Exception ):
 def romano_a_entero(romano:str)->int:
     valor_entero = 0
     lista_romano = list(romano)
+    longitud = len(lista_romano)
 
-    for pos in range(0, len(lista_romano)):
-        if pos == 0:
-            if dic_romano_a_entero.get(lista_romano[pos]) <  dic_romano_a_entero.get(lista_romano[pos+1]):
-                 valor_entero = dic_romano_a_entero.get(lista_romano[pos+1]) - dic_romano_a_entero.get(lista_romano[pos])
+    for pos in range(longitud):
+        if pos != 0:
+            if dic_romano_a_entero.get(lista_romano[pos-1]) <  dic_romano_a_entero.get(lista_romano[pos]):
+                valor_entero -=dic_romano_a_entero.get(lista_romano[pos-1])
+                valor_entero += (dic_romano_a_entero.get(lista_romano[pos]) - dic_romano_a_entero.get(lista_romano[pos-1]))
             else:
                  valor_entero += dic_romano_a_entero.get(lista_romano[pos])
         else:
@@ -59,7 +61,7 @@ def romano_a_entero(romano:str)->int:
 
     return valor_entero 
   
-print(romano_a_entero("III")) 
+print(romano_a_entero("IX")) 
 
 #1994
 def entero_a_romano(numero:int)->str:
@@ -77,4 +79,4 @@ def entero_a_romano(numero:int)->str:
         valor_num /= 10
 
    
-print( entero_a_romano(1994) )
+#print( entero_a_romano(1994) )
